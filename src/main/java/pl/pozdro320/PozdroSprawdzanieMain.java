@@ -7,6 +7,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import pl.pozdro320.api.PozdroSprawdzanieAPI;
 import pl.pozdro320.commands.CheckCommand;
 import pl.pozdro320.commands.CheckerCommand;
 import pl.pozdro320.commands.ConfessesCommand;
@@ -58,6 +60,8 @@ public class PozdroSprawdzanieMain extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        PozdroSprawdzanieAPI.init(this);
+
         if (!setupPermissions()) {
             getLogger().severe("Nie znaleziono Vault! Wylaczanie pluginu...");
             getServer().getPluginManager().disablePlugin(this);
