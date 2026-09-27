@@ -1,0 +1,25 @@
+gui:
+  history:
+    title: '&8Logi: &d{PLAYER}'
+    size: 36
+    buttons:
+      empty:
+        slot: 13
+        material: BARRIER
+        name: '&5&lBRAK WPISOW'
+        lore:
+          - '&fTen gracz nigdy nie byl sprawdzany.'
+      back:
+        slot: 31
+        material: BARRIER
+        name: '&b&lPOWROT'
+        lore:
+          - '&fWroc do panelu glownego.'
+      entries:
+        slot: -1 # Przedmiot szablonowy, wstawiany dynamicznie w kodzie
+        material: PAPER
+        name: '&d&lWPIS HISTORII'
+        lore:
+          - '&fData: &b{DATE}'
+          - '&fAkcja: &d{ACTION}'
+          - '&fModerator: &f{MODERATOR}'

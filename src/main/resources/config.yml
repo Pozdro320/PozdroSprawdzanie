@@ -1,17 +1,9 @@
 ##################################################################################################################
-#   ███████╗ ██████╗       ███████╗██████╗ ██████╗  █████╗ ██╗    ██╗██████╗ ███████╗ █████╗ ███╗   ██╗██╗███████╗
-#   ██╔════╝██╔════╝       ██╔════╝██╔══██╗██╔══██╗██╔══██╗██║    ██║██╔══██╗╚══███╔╝██╔══██╗████╗  ██║██║██╔════╝
-#   ███████╗██║     █████╗ ███████╗██████╔╝██████╔╝███████║██║ █╗ ██║██║  ██║  ███╔╝ ███████║██╔██╗ ██║██║█████╗
-#   ╚════██║██║     ╚════╝ ╚════██║██╔═══╝ ██╔══██╗██╔══██║██║███╗██║██║  ██║ ███╔╝  ██╔══██║██║╚██╗██║██║██╔══╝
-#   ███████║╚██████╗       ███████║██║     ██║  ██║██║  ██║╚███╔███╔╝██████╔╝███████╗██║  ██║██║ ╚████║██║███████╗
-#   ╚══════╝ ╚═════╝       ╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚══════╝
-#
 #                          > Plugin by: Pozdro320 <
 #                          > Wersja: 1.0 <
 #
 #  Wszelkie bledy nalezy zglaszac poprzez:
-#  1. System ticketow na Discordzie Server-Creators
-#  2. Wiadomosc prywatna na Discord (DM): Pozdro320
+#  1. Wiadomosc prywatna na Discord (DM): Pozdro320
 #
 ##################################################################################################################
 
@@ -21,15 +13,15 @@ commands:
   cheats-detected:
   - tempban {PLAYER} 7d &8» &fWykryto &5cheaty &fpodczas kontroli!
     &8(&b{MODERATOR}&8)
-  
+
   admission:
   - tempban {PLAYER} 5d &8» &fGracz &b{PLAYER} &fprzyznal sie
     do cheatow.
-  
+
   lack-of-cooperation:
   - tempban {PLAYER} 14d &8» &fBrak wspolpracy z administratorem
     &b{MODERATOR}&f.
-  
+
   logged-out:
   - tempban {PLAYER} 14d &8» &fGracz &b{PLAYER} &fwylogowal sie
     podczas sprawdzania!

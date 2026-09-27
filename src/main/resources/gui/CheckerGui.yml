@@ -1,0 +1,75 @@
+gui:
+  checker:
+    title: '&8Kontrola: &d{PLAYER}'
+    size: 27
+    buttons:
+      check:
+        slot: 10
+        material: COMPASS
+        name: '&d&lROZPOCZNIJ SPRAWDZANIE'
+        lore:
+          - '&8&m------------------------'
+          - '&fPrzenies gracza do &5strefy kontroli'
+          - '&fi rozpocznij weryfikacje plikow.'
+          - '&8&m------------------------'
+          - '&bKliknij, aby wezwac gracza!'
+      clean:
+        slot: 11
+        material: LIME_DYE
+        name: '&a&lGRACZ JEST CZYSTY'
+        lore:
+          - '&8&m------------------------'
+          - '&fOczysc gracza &d{PLAYER} &fz zarzutow'
+          - '&fi przywroc go do gry na spawnie.'
+          - '&8&m------------------------'
+          - '&bKliknij, aby zakonczyc!'
+      cheater:
+        slot: 12
+        material: RED_DYE
+        name: '&5&lWYKRYTO CHEATY'
+        lore:
+          - '&8&m------------------------'
+          - '&fNadaj blokade na &d7 dni &fza'
+          - '&fuzywanie niedozwolonych modyfikacji.'
+          - '&8&m------------------------'
+          - '&bKliknij, aby ukarac!'
+      admission:
+        slot: 13
+        material: ANVIL
+        name: '&b&lPRZYZNANIE SIE'
+        lore:
+          - '&8&m------------------------'
+          - '&fGracz dobrowolnie przyznal sie.'
+          - '&fKara zostaje skrocona do &d5 dni&f.'
+          - '&8&m------------------------'
+          - '&bKliknij, aby nadac ban!'
+      lack-of-cooperation:
+        slot: 14
+        material: IRON_BARS
+        name: '&4&lBRAK WSPOLPRACY'
+        lore:
+          - '&8&m------------------------'
+          - '&fGracz odmowil wspolpracy lub'
+          - '&futrudnia przebieg sprawdzania.'
+          - '&8&m------------------------'
+          - '&bKliknij, aby zbanowac!'
+      teleport:
+        slot: 15
+        material: ENDER_PEARL
+        name: '&b&lTELEPORT DO SPRAWDZARKI'
+        lore:
+          - '&8&m------------------------'
+          - '&fTeleportuj swoja postac do'
+          - '&faktualnej &5strefy sprawdzania&f.'
+          - '&8&m------------------------'
+          - '&bKliknij, aby sie przeniesc!'
+      history:
+        slot: 16
+        material: BOOK
+        name: '&d&lHISTORIA KONTROLI'
+        lore:
+          - '&8&m------------------------'
+          - '&fZobacz rejestr wszystkich akcji'
+          - '&fpodjetych wobec gracza &d{PLAYER}&f.'
+          - '&8&m------------------------'
+          - '&bKliknij, aby przejrzec!'

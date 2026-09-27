@@ -1,6 +1,7 @@
-name: sc-sprawdzanie
+name: PozdroSprawdzanie
 version: 1.0
-main: pl.servercreators.SCSprawdzMain
-api-version: 1.16
+main: pl.pozdro320.PozdroSprawdzanieMain
+api-version: 1.21
 author: Pozdro320
 depend: [Vault]
+softdepend: [PlaceholderAPI]
