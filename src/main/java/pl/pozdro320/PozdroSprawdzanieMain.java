@@ -115,6 +115,10 @@ public class PozdroSprawdzanieMain extends JavaPlugin {
             this.checkedPlayersTask.stop();
         }
 
+        if (this.historyManager != null) {
+            this.historyManager.shutdown();
+        }
+
         checkedPlayers.clear();
     }
 

@@ -7,24 +7,33 @@
 #
 ##################################################################################################################
 
+database:
+  # Typ zapisu: MYSQL, MARIADB lub YML
+  type: "MYSQL"
+  host: "localhost"
+  port: 3306
+  database: "minecraft"
+  username: "root"
+  password: ""
+  table-prefix: "pozdro_"
+  ssl: false
+  pool:
+    maximum-pool-size: 10
+    minimum-idle: 2
+    connection-timeout: 5000
+    max-lifetime: 1800000
+
 # | Sekcja komend wykonywanych podczac danej akcji:                             |
 # | Dostepne zmienne: {PLAYER} - nick gracza, {MODERATOR} - nick sprawdzającego |
 commands:
   cheats-detected:
-  - tempban {PLAYER} 7d &8» &fWykryto &5cheaty &fpodczas kontroli!
-    &8(&b{MODERATOR}&8)
-
+    - "tempban {PLAYER} 7d &#FF0000Wykryto niedozwolone modyfikacje &8(&#00C0F1{MODERATOR}&8)"
   admission:
-  - tempban {PLAYER} 5d &8» &fGracz &b{PLAYER} &fprzyznal sie
-    do cheatow.
-
+    - "tempban {PLAYER} 4d &#FF8600Przyznanie się do posiadania cheatów &8(&#00C0F1{MODERATOR}&8)"
   lack-of-cooperation:
-  - tempban {PLAYER} 14d &8» &fBrak wspolpracy z administratorem
-    &b{MODERATOR}&f.
-
+    - "tempban {PLAYER} 14d &#FF0000Brak współpracy podczas kontroli &8(&#00C0F1{MODERATOR}&8)"
   logged-out:
-  - tempban {PLAYER} 14d &8» &fGracz &b{PLAYER} &fwylogowal sie
-    podczas sprawdzania!
+    - "tempban {PLAYER} 14d &#FF0000Opuszczenie gry podczas sprawdzania &8(&#00C0F1{MODERATOR}&8)"
 
 
 # | Sekcja zapisu logów w histori                                              |

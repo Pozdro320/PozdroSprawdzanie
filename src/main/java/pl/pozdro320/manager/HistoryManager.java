@@ -1,84 +1,72 @@
 package pl.pozdro320.manager;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.YamlConfiguration;
 import pl.pozdro320.PozdroSprawdzanieMain;
+import pl.pozdro320.database.HistoryStorage;
+import pl.pozdro320.database.impl.MySQLHistoryStorage;
+import pl.pozdro320.database.impl.YamlHistoryStorage;
 import pl.pozdro320.models.HistoryEntry;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class HistoryManager {
 
     private final PozdroSprawdzanieMain plugin;
-    private final File historyFolder;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy");
+    private HistoryStorage storage;
 
     public HistoryManager(PozdroSprawdzanieMain plugin) {
         this.plugin = plugin;
-        this.historyFolder = new File(plugin.getDataFolder(), "history");
-        if (!this.historyFolder.exists()) {
-            this.historyFolder.mkdirs();
-        }
+        this.initStorage();
     }
 
+    public void initStorage() {
+        if (this.storage != null) {
+            this.storage.close();
+        }
+
+        String type = plugin.getConfig().getString("database.type", "YML").toUpperCase();
+        if (type.equals("MYSQL") || type.equals("MARIADB")) {
+            this.storage = new MySQLHistoryStorage(plugin);
+            plugin.getLogger().info("Zaladowano obsluge bazy danych MySQL/MariaDB dla historii.");
+        } else {
+            this.storage = new YamlHistoryStorage(plugin);
+            plugin.getLogger().info("Zaladowano obsluge plikow YML dla historii.");
+        }
+
+        this.storage.init();
+    }
+
+    /**
+     * Asynchroniczny zapis logu do bazy lub pliku.
+     */
     public void log(String playerName, String action, String moderatorName) {
         String time = LocalDateTime.now().format(formatter);
-
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            File playerFile = new File(historyFolder, playerName + ".yml");
-            YamlConfiguration config = YamlConfiguration.loadConfiguration(playerFile);
-
-            Map<String, Object> entry = new LinkedHashMap<>();
-            entry.put("date", time);
-            entry.put("action", action);
-            entry.put("moderator", moderatorName);
-
-            List<Map<?, ?>> logs = new ArrayList<>(config.getMapList("entries"));
-            logs.add(entry);
-
-            config.set("entries", logs);
-            config.set("last_update", time);
-
-            try {
-                config.save(playerFile);
-            } catch (IOException e) {
-                plugin.getLogger().severe("Nie udalo sie zapisac historii dla: " + playerName);
-                e.printStackTrace();
-            }
+            storage.log(playerName, action, moderatorName, time);
         });
     }
 
+    /**
+     * Synchroniczne pobranie danych
+     */
     public List<HistoryEntry> getHistory(String playerName) {
-        File playerFile = new File(historyFolder, playerName + ".yml");
-        if (!playerFile.exists()) return Collections.emptyList();
+        return storage.getHistory(playerName);
+    }
 
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(playerFile);
-        List<Map<?, ?>> rawEntries = config.getMapList("entries");
+    /**
+     * Asynchroniczne pobranie całej historii.
+     */
+    public CompletableFuture<List<HistoryEntry>> getHistoryAsync(String playerName) {
+        return CompletableFuture.supplyAsync(() -> storage.getHistory(playerName));
+    }
 
-        if (rawEntries.isEmpty()) return Collections.emptyList();
-
-        List<HistoryEntry> entries = new ArrayList<>();
-        int limit = 14;
-        int start = Math.max(0, rawEntries.size() - limit);
-
-        for (int i = rawEntries.size() - 1; i >= start; i--) {
-            Map<?, ?> map = rawEntries.get(i);
-
-            Object dateObj = map.get("date");
-            Object actionObj = map.get("action");
-            Object modObj = map.get("moderator");
-
-            entries.add(new HistoryEntry(
-                dateObj != null ? dateObj.toString() : "Brak daty",
-                actionObj != null ? actionObj.toString() : "Brak akcji",
-                modObj != null ? modObj.toString() : "Brak moderatora"
-            ));
+    public void shutdown() {
+        if (storage != null) {
+            storage.close();
         }
-
-        return entries;
     }
 }
