@@ -33,6 +33,10 @@ public class HistoryGUI {
     }
 
     public void openGUI(Player player, Player target) {
+        openGUI(player, target, 0);
+    }
+
+    public void openGUI(Player player, Player target, int page) {
         String targetName = target.getName();
 
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
@@ -46,15 +50,26 @@ public class HistoryGUI {
                 String rawTitle = guiManager.getGuiTitle(GUI_NAME);
                 String title = MessageHelper.colored(rawTitle.replace("{PLAYER}", targetName));
 
-                HistoryHolder holder = new HistoryHolder(target.getUniqueId(), targetName);
+                int perPage = HISTORY_SLOTS.length;
+                int totalLogs = logs.size();
+                int maxPages = (int) Math.ceil((double) totalLogs / perPage);
+                if (maxPages == 0) maxPages = 1;
+
+                int currentPage = Math.max(0, Math.min(page, maxPages - 1));
+
+                HistoryHolder holder = new HistoryHolder(target.getUniqueId(), targetName, currentPage);
                 Inventory inv = Bukkit.createInventory(holder, size, title);
                 holder.setInventory(inv);
 
                 if (logs.isEmpty()) {
                     guiManager.setItem(inv, GUI_NAME, "empty", "EMPTY_LOGS", actionKey, Map.of("{PLAYER}", targetName));
                 } else {
-                    for (int i = 0; i < logs.size() && i < HISTORY_SLOTS.length; i++) {
+                    int startIndex = currentPage * perPage;
+                    int endIndex = Math.min(startIndex + perPage, totalLogs);
+
+                    for (int i = startIndex; i < endIndex; i++) {
                         HistoryEntry entry = logs.get(i);
+                        int slotIndex = i - startIndex;
 
                         Map<String, String> placeholders = new HashMap<>();
                         placeholders.put("{PLAYER}", targetName);
@@ -63,11 +78,22 @@ public class HistoryGUI {
                         placeholders.put("{MODERATOR}", entry.moderator());
 
                         ItemStack entryItem = guiManager.setItem(GUI_NAME, "entries", "ENTRY_" + i, actionKey, placeholders);
-                        inv.setItem(HISTORY_SLOTS[i], entryItem);
+                        inv.setItem(HISTORY_SLOTS[slotIndex], entryItem);
                     }
                 }
 
+                if (currentPage > 0) {
+                    guiManager.setItem(inv, GUI_NAME, "previous_page", "PREVIOUS_PAGE", actionKey,
+                            Map.of("{PAGE}", String.valueOf(currentPage)));
+                }
+
+                if (currentPage < maxPages - 1) {
+                    guiManager.setItem(inv, GUI_NAME, "next_page", "NEXT_PAGE", actionKey,
+                            Map.of("{PAGE}", String.valueOf(currentPage + 2)));
+                }
+
                 guiManager.setItem(inv, GUI_NAME, "back", "BACK_TO_CHECKER", actionKey, Map.of("{PLAYER}", targetName));
+
                 player.openInventory(inv);
             });
         });

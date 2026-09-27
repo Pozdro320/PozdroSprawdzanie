@@ -10,7 +10,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-
 import pl.pozdro320.PozdroSprawdzanieMain;
 import pl.pozdro320.gui.holder.HistoryHolder;
 
@@ -39,15 +38,25 @@ public class HistoryGuiListener implements Listener {
         String action = meta.getPersistentDataContainer().get(plugin.getHistoryGUI().getActionKey(), PersistentDataType.STRING);
         if (action == null) return;
 
-        if ("BACK_TO_CHECKER".equals(action)) {
-            Player target = Bukkit.getPlayer(holder.getTargetUuid());
+        Player target = Bukkit.getPlayer(holder.getTargetUuid());
+        if (target == null || !target.isOnline()) {
+            moderator.closeInventory();
+            plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.player-offline", "{PLAYER}", holder.getTargetName());
+            return;
+        }
 
-            if (target != null && target.isOnline()) {
+        switch (action) {
+            case "PREVIOUS_PAGE" -> {
+                plugin.getHistoryGUI().openGUI(moderator, target, holder.getPage() - 1);
+                moderator.playSound(moderator.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 1f, 1f);
+            }
+            case "NEXT_PAGE" -> {
+                plugin.getHistoryGUI().openGUI(moderator, target, holder.getPage() + 1);
+                moderator.playSound(moderator.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 1f, 1f);
+            }
+            case "BACK_TO_CHECKER" -> {
                 plugin.getCheckerGUI().openGUI(moderator, target);
                 moderator.playSound(moderator.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 1f, 1f);
-            } else {
-                moderator.closeInventory();
-                plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.player-offline", "{PLAYER}", holder.getTargetName());
             }
         }
     }

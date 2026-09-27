@@ -28,3 +28,19 @@ gui:
           - "&8x &8» &#C3C3C3Data: &#FF8600{DATE}"
           - "&8x &8» &#C3C3C3Akcja: &#00C0F1{ACTION}"
           - "&8x &8» &#C3C3C3Moderator: &#00C0F1{MODERATOR}"
+
+      previous_page:
+        material: ARROW
+        name: "&#FFC70C&lᴘᴏᴘʀᴢᴇᴅɴɪᴀ ꜱᴛʀᴏɴᴀ &8(&f{PAGE}&8)"
+        slot: 18
+        model-data: 0
+        lore:
+          - "&8x &#C3C3C3Kliknij, aby przejść do poprzedniej strony."
+
+      next_page:
+        material: ARROW
+        name: "&#FFC70C&lɴᴀꜱᴛᴇᴘɴᴀ ꜱᴛʀᴏɴᴀ &8(&f{PAGE}&8)"
+        slot: 26
+        model-data: 0
+        lore:
+          - "&8x &#C3C3C3Kliknij, aby przejść do następnej strony."
