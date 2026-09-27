@@ -1,25 +1,30 @@
 gui:
   history:
-    title: '&8Logi: &d{PLAYER}'
+    title: '&8Historia kontroli: &#00C0F1{PLAYER}'
     size: 36
     buttons:
       empty:
         slot: 13
         material: BARRIER
-        name: '&5&lBRAK WPISOW'
+        name: "&#FF0000&lʙʀᴀᴋ ᴡᴘɪꜱᴏᴡ"
         lore:
-          - '&fTen gracz nigdy nie byl sprawdzany.'
+          - "&8x &#C3C3C3Ten gracz nie posiada żadnych wpisów"
+          - "&8x &#C3C3C3w historii weryfikacji i sprawdzania."
+
       back:
         slot: 31
         material: BARRIER
-        name: '&b&lPOWROT'
+        name: "&#FF0000&lᴘᴏᴡʀᴏᴛ"
+        model-data: 0
         lore:
-          - '&fWroc do panelu glownego.'
+          - "&8x &#C3C3C3Kliknij, aby powrócić do panelu kontroli."
+
       entries:
-        slot: -1 # Przedmiot szablonowy, wstawiany dynamicznie w kodzie
+        slot: -1
         material: PAPER
-        name: '&d&lWPIS HISTORII'
+        name: "&#00C0F1&lᴡᴘɪꜱ ʜɪꜱᴛᴏʀɪɪ"
         lore:
-          - '&fData: &b{DATE}'
-          - '&fAkcja: &d{ACTION}'
-          - '&fModerator: &f{MODERATOR}'
+          - "&8x &8➜ &#FFC70CInformacje o wpisie&8:"
+          - "&8x &8» &#C3C3C3Data: &#FF8600{DATE}"
+          - "&8x &8» &#C3C3C3Akcja: &#00C0F1{ACTION}"
+          - "&8x &8» &#C3C3C3Moderator: &#00C0F1{MODERATOR}"

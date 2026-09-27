@@ -1,146 +1,127 @@
 # =============================================================
-# SCSprawdz - Dokumentacja Systemu Wiadomości
+# SCSprawdz - Konfiguracja Wiadomości
+# Styl dopasowany do standardu serwera BOMBA.GG
 # =============================================================
-# W każdej paczce (np. check-start-player) możesz użyć poniższych opcji.
-# JEŚLI NIE CHCESZ danej funkcji (np. dźwięku lub tytułu),
-# po prostu usuń tę linię lub zostaw puste cudzysłowy "".
-#
-# "MOD" - osoba, która sprawdza gracza,
-# "PLAYER" - osoba, która jest sprawdzana.
-#
-# chat: "wiadomość" lub lista: ["linia1", "linia2"]
-# title: "Tytuł na środku ekranu"
-# subtitle: "Podtytuł na środku ekranu"
-# actionbar: "Napis nad ekwipunkiem"
-# sound: "NAZWA_DZWIEKU" (np. ENTITY_PLAYER_LEVELUP zgodnie z Minecraft Sound List)
-# broadcast: ["Wiadomość do wszystkich na serwerze"]
-#
-# Placeholdery:
-# {PLAYER} - Nazwa sprawdzanego gracza
-# {MODERATOR} - Nazwa moderatora
-# {MESSAGE} - Na treść napisaną przez gracza tylko dla komunikatów czatu.
-# =============================================================
-
 messages:
   errors:
     no-checker:
-      chat: "&5&lServer&f&lCreators &8» &fBrak lokalizacji &5sprawdzarki&f."
+      chat: "&f网 &#FF0000Lokalizacja strefy sprawdzania nie została jeszcze ustawiona!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     no-spawn:
-      chat: "&5&lServer&f&lCreators &8» &fBrak lokalizacji &5spawnu&f."
+      chat: "&f网 &#FF0000Lokalizacja spawnu nie została jeszcze ustawiona!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     is-checked:
-      chat: "&5&lServer&f&lCreators &8» &fTen gracz nie jest sprawdzany!"
+      chat: "&f网 &#FF0000Ten gracz nie jest obecnie sprawdzany!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     player-offline:
-      chat: "&5&lServer&f&lCreators &8» &fWybrany gracz jest &coffline&f!"
+      chat: "&f网 &#FF0000Podany gracz jest offline!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     block-commands:
-      chat: "&5&lServer&f&lCreators &8» &cKomendy sa zablokowane podczas kontroli!"
+      chat: "&f网 &#FF0000Wykonywanie komend podczas trwania kontroli jest zablokowane!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     him-self:
-      chat: "&5&lServer&f&lCreators &8» &cNie mozesz sprawdzic samego siebie!"
+      chat: "&f网 &#FF0000Nie możesz wezwać do sprawdzania samego siebie!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     hierarchy:
-      chat: "&5&lServer&f&lCreators &8» &cNie masz uprawnien do sprawdzania &f{PLAYER}&c!"
+      chat: "&f网 &#FF0000Nie posiadasz uprawnień do sprawdzania gracza &#00C0F1{PLAYER}&r&#FF0000!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     not-checked:
-      chat: "&5&lServer&f&lCreators &8» &cNie jestes aktualnie sprawdzany."
+      chat: "&f网 &#FF0000Nie jesteś obecnie sprawdzany!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     chat-no-moderator:
-      chat: "&5&lServer&f&lCreators &8» &cMusisz poczekać na administratora!"
+      chat: "&f网 &#FF0000Musisz poczekać na dołączenie administratora!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     only-players:
-      chat: "&5&lServer&f&lCreators &8» &cTylko gracze mogą używać tej komendy!"
+      chat: "&f网 &#FF0000Ta komenda może być używana wyłącznie przez graczy!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     no-permission-check:
-      chat: "&5&lServer&f&lCreators &8» &cNie masz uprawnień do tej komendy &8(&4sc-sprawdzanie.sprawdz&8)"
+      chat: "&f网 &#FF0000Nie posiadasz uprawnień do sprawdzania graczy! &8(&#C3C3C3sc-sprawdzanie.sprawdz&8)"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     no-permission-checker:
-      chat: "&5&lServer&f&lCreators &8» &cNie masz uprawnień do tej komendy &8(&4sc-sprawdzanie.admin&8)"
+      chat: "&f网 &#FF0000Nie posiadasz uprawnień do zarządzania sprawdzarką! &8(&#C3C3C3sc-sprawdzanie.admin&8)"
       sound: "BLOCK_NOTE_BLOCK_BASS"
 
   usage:
     check:
-      chat: "&5&lServer&f&lCreators &8» &cPoprawne użycie: &8/&4sprawdz &8<&4nick&8>"
+      chat: "&f网 &#FF8600Poprawne użycie: &#C3C3C3/sprawdz <gracz>"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     checker:
-      chat: "&5&lServer&f&lCreators &8» &cPoprawne użycie: &8/&4sprawdzarka &8<&4set-checker&8|&4set-spawn&8|&4reload&8|&4teleport&8>"
+      chat: "&f网 &#FF8600Poprawne użycie: &#C3C3C3/sprawdzarka <set-checker|set-spawn|reload|teleport>"
       sound: "BLOCK_NOTE_BLOCK_BASS"
 
   chat-checker:
-    chat: "&8[&d&lGRACZ&8] &f{PLAYER}&8: &f{MESSAGE}"
+    chat: "&8[&#FFC70C&lGRACZ&8] &#00C0F1{PLAYER}&8: &#C3C3C3{MESSAGE}"
   chat-moderator:
-    chat: "&8[&b&lMOD&8] &b{MODERATOR}&8: &f{MESSAGE}"
+    chat: "&8[&#00C0F1&lMOD&8] &#00C0F1{MODERATOR}&8: &#C3C3C3{MESSAGE}"
   no-moderator:
-    chat: "&5&lServer&f&lCreators &8» &fPoczekaj na odpowiedz sprawdzajacego!"
+    chat: "&f网 &#FF8600Poczekaj na odpowiedź osoby sprawdzającej!"
     sound: "BLOCK_NOTE_BLOCK_BASS"
 
   check-start-player:
-    chat: "&5&lServer&f&lCreators &8» &fZostales wezwany do sprawdzania przez &b{MODERATOR}&f!"
+    chat: "&f网 &#FF8600Zostałeś wezwany do sprawdzania przez administratora &#00C0F1{MODERATOR}&r&#FF8600!"
     sound: "ENTITY_ENDERMAN_TELEPORT"
   check-start-mod:
-    title: "&d&lKONTROLA PLIKOW"
-    subtitle: "&fRozpoczeto procedure wobec &b{PLAYER}"
-    sound: "BLOCK_NOTE_BLOCK_BELL"
+    title: "&f网 &#FF8600&lKONTROLA PLIKÓW &f网"
+    subtitle: "&#C3C3C3Rozpoczęto procedurę wobec gracza &#00C0F1{PLAYER}"
+    sound: "ENTITY_PLAYER_LEVELUP"
     broadcast:
-      - "&5&lServer&f&lCreators &8» &fModerator &b{MODERATOR} &frozpoczal sprawdzanie gracza &d{PLAYER}&f!"
+      - "&f网 &#FF8600Administrator &#00C0F1{MODERATOR} &#FF8600rozpoczął sprawdzanie gracza &#00C0F1{PLAYER}&r&#FF8600!"
 
   player-clean:
-    title: "&a&lSTATUS: CZYSTY ✔"
-    subtitle: "&fMozesz kontynuować swoją rozgrywkę &4❤"
+    title: "&f耳 &#37FF00&lSTATUS: CZYSTY &f耳"
+    subtitle: "&#C3C3C3Zostałeś oczyszczony z zarzutów. Miłej gry!"
     sound: "ENTITY_PLAYER_LEVELUP"
   mod-clean:
-    title: "&d&lKONTROLA"
-    subtitle: "&fGracz &b{PLAYER} &fzostal uznany za czystego."
+    title: "&f耳 &#37FF00&lGRACZ CZYSTY &f耳"
+    subtitle: "&#C3C3C3Gracz &#00C0F1{PLAYER} &#C3C3C3został uznany za czystego!"
     sound: "ENTITY_PLAYER_LEVELUP"
     broadcast:
-      - "&5&lServer&f&lCreators &8» &fGracz &d{PLAYER} &fzostal sprawdzony i jest &a&lCZYSTY&f!"
+      - "&f耳 &#37FF00Gracz &#00C0F1{PLAYER} &#37FF00został pomyślnie sprawdzony i jest &#37FF00&lczysty&r&#37FF00!"
 
   cheats-mod:
-    title: "&5&lWYKRYTO CHEATY"
-    subtitle: "&fGracz &b{PLAYER} &fzostaje ukarany."
-    sound: "ENTITY_WITHER_DEATH"
+    title: "&f网 &#FF0000&lWYKRYTO CHEATY &f网"
+    subtitle: "&#FF0000Gracz &#00C0F1{PLAYER} &#FF0000został ukarany za modyfikacje!"
+    sound: "ENTITY_ITEM_BREAK"
 
   admission-mod:
-    title: "&b&lPRZYZNANIE SIE"
-    subtitle: "&fGracz &b{PLAYER} &fprzyznal sie do winy."
-    sound: "BLOCK_NOTE_BLOCK_PLING"
+    title: "&f网 &#FF8600&lPRZYZNANIE SIĘ &f网"
+    subtitle: "&#C3C3C3Gracz &#00C0F1{PLAYER} &#C3C3C3przyznał się do posiadania cheatów!"
+    sound: "BLOCK_NOTE_BLOCK_CHIME"
 
   lack-of-cooperation-mod:
-    title: "&4&lBRAK WSPOLPRACY"
-    subtitle: "&fGracz &b{PLAYER} &fodmowil weryfikacji."
-    sound: "ENTITY_WITHER_SPAWN"
+    title: "&f网 &#FF0000&lBRAK WSPÓŁPRACY &f网"
+    subtitle: "&#FF0000Gracz &#00C0F1{PLAYER} &#FF0000odmówił współpracy podczas kontroli!"
+    sound: "ENTITY_ITEM_BREAK"
 
   logged-out-mod:
-    title: "&5&lWYLOGOWANO"
-    subtitle: "&fGracz &b{PLAYER} &fzostaje ukarany."
-    sound: "ENTITY_WITHER_DEATH"
+    title: "&f网 &#FF0000&lWYLOGOWANIE &f网"
+    subtitle: "&#FF0000Gracz &#00C0F1{PLAYER} &#FF0000opuścił grę w trakcie sprawdzania!"
+    sound: "ENTITY_ITEM_BREAK"
 
   tp-checker:
-    chat: "&5&lServer&f&lCreators &8» &fTeleportowano do strefy sprawdzan."
+    chat: "&f耳 &#37FF00Przeteleportowano do strefy sprawdzania!"
     sound: "ENTITY_ENDERMAN_TELEPORT"
-  
+
   locations-settings:
     set-checker:
-      title: "&a&lPOMYŚLNIE"
-      subtitle: "&fLokalizacja sprawdzarki zostala ustawiona!"
-      sound: "ENTITY_ENDERMAN_TELEPORT"
+      title: "&f耳 &#37FF00&lPOMYŚLNIE &f耳"
+      subtitle: "&#C3C3C3Lokalizacja strefy sprawdzarki została zapisana!"
+      sound: "ENTITY_PLAYER_LEVELUP"
     set-spawn:
-      title: "&a&lPOMYŚLNIE"
-      subtitle: "&fLokalizacja spawnu zostala ustawiona!"
-      sound: "ENTITY_ENDERMAN_TELEPORT"
+      title: "&f耳 &#37FF00&lPOMYŚLNIE &f耳"
+      subtitle: "&#C3C3C3Lokalizacja punktu odrodzenia (spawn) została zapisana!"
+      sound: "ENTITY_PLAYER_LEVELUP"
 
   reload-success:
-    chat: "&8[&a!&8] &aPomyślnie przeładowano konfigurację"
-    sound: "BLOCK_NOTE_BLOCK_BIT"
+    chat: "&f网 &#37FF00Konfiguracja sprawdzania została pomyślnie przeładowana!"
+    sound: "BLOCK_NOTE_BLOCK_CHIME"
 
-# WIADOMOŚCI TASKA PODCZAS SPRAWDZANIA
+  # WIADOMOŚCI TASKA PODCZAS SPRAWDZANIA
   player-message:
-    title: "&6&l⚠ &c&lJESTEŚ SPRAWDZANY &6&l⚠"
-    subtitle: "&7&l➡ &fWejdź na: &bdiscord.gg/servercreators &7&l⬅"
+    title: "&f网 &#FF0000&lJESTEŚ SPRAWDZANY &f网"
+    subtitle: "&#C3C3C3Wejdź na serwer Discord: &#0CA6FF&nᴡᴡᴡ.ᴅᴄ.ʙᴏᴍʙᴀ.ɢɢ"
     sound: "BLOCK_NOTE_BLOCK_HAT"
 
   mod-message:
-    actionbar: "&6&l⚡ &5&lServer&f&lCreators &8| &fSprawdzasz: &b{PLAYER}"
+    actionbar: "&f自 &#C3C3C3Sprawdzasz gracza: &#00C0F1{PLAYER}"
     sound: "BLOCK_NOTE_BLOCK_HAT"

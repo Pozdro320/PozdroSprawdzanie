@@ -1,75 +1,81 @@
 gui:
   checker:
-    title: '&8Kontrola: &d{PLAYER}'
+    title: '&8Kontrola gracza: &#00C0F1{PLAYER}'
     size: 27
     buttons:
       check:
         slot: 10
         material: COMPASS
-        name: '&d&lROZPOCZNIJ SPRAWDZANIE'
+        name: "&#00C0F1&lʀᴏᴢᴘᴏᴄᴢɴɪᴊ ꜱᴘʀᴀᴡᴅᴢᴀɴɪᴇ"
         lore:
-          - '&8&m------------------------'
-          - '&fPrzenies gracza do &5strefy kontroli'
-          - '&fi rozpocznij weryfikacje plikow.'
-          - '&8&m------------------------'
-          - '&bKliknij, aby wezwac gracza!'
+          - "&8x &8➜ &#FFC70CInformacje o kontroli&8:"
+          - "&8x &#C3C3C3Przenieś gracza do &#00C0F1strefy kontroli&r&#C3C3C3"
+          - "&8x &#C3C3C3i rozpocznij weryfikację plików gry."
+          - ""
+          - "&8x &#37FF00Kliknij, aby wezwać gracza!"
+
       clean:
         slot: 11
         material: LIME_DYE
-        name: '&a&lGRACZ JEST CZYSTY'
+        name: "&#37FF00&lɢʀᴀᴄᴢ ᴊᴇꜱᴛ ᴄᴢʏꜱᴛʏ"
         lore:
-          - '&8&m------------------------'
-          - '&fOczysc gracza &d{PLAYER} &fz zarzutow'
-          - '&fi przywroc go do gry na spawnie.'
-          - '&8&m------------------------'
-          - '&bKliknij, aby zakonczyc!'
+          - "&8x &8➜ &#FFC70CInformacje o decyzji&8:"
+          - "&8x &#C3C3C3Oczyść gracza &#00C0F1{PLAYER}&r &#C3C3C3z zarzutów"
+          - "&8x &#C3C3C3i przywróć go bezpiecznie na spawn."
+          - ""
+          - "&8x &#37FF00Kliknij, aby zakończyć sprawdzanie!"
+
       cheater:
         slot: 12
         material: RED_DYE
-        name: '&5&lWYKRYTO CHEATY'
+        name: "&#FF0000&lᴡʏᴋʀʏᴛᴏ ᴄʜᴇᴀᴛʏ"
         lore:
-          - '&8&m------------------------'
-          - '&fNadaj blokade na &d7 dni &fza'
-          - '&fuzywanie niedozwolonych modyfikacji.'
-          - '&8&m------------------------'
-          - '&bKliknij, aby ukarac!'
+          - "&8x &8➜ &#FFC70CInformacje o karze&8:"
+          - "&8x &#C3C3C3Nadaj karę blokady na czas &#FF86007 dni&#C3C3C3"
+          - "&8x &#C3C3C3za używanie niedozwolonych modyfikacji."
+          - ""
+          - "&8x &#FF0000Kliknij, aby ukarać gracza!"
+
       admission:
         slot: 13
         material: ANVIL
-        name: '&b&lPRZYZNANIE SIE'
+        name: "&#FF8600&lᴘʀᴢʏᴢɴᴀɴɪᴇ ꜱɪᴇ"
         lore:
-          - '&8&m------------------------'
-          - '&fGracz dobrowolnie przyznal sie.'
-          - '&fKara zostaje skrocona do &d5 dni&f.'
-          - '&8&m------------------------'
-          - '&bKliknij, aby nadac ban!'
+          - "&8x &8➜ &#FFC70CInformacje o karze&8:"
+          - "&8x &#C3C3C3Gracz dobrowolnie przyznał się do winy."
+          - "&8x &#C3C3C3Kara zostaje skrócona do &#FF86005 dni&#C3C3C3."
+          - ""
+          - "&8x &#FF8600Kliknij, aby nadać skróconą blokadę!"
+
       lack-of-cooperation:
         slot: 14
         material: IRON_BARS
-        name: '&4&lBRAK WSPOLPRACY'
+        name: "&#FF0000&lʙʀᴀᴋ ᴡꜱᴘᴏʟᴘʀᴀᴄʏ"
         lore:
-          - '&8&m------------------------'
-          - '&fGracz odmowil wspolpracy lub'
-          - '&futrudnia przebieg sprawdzania.'
-          - '&8&m------------------------'
-          - '&bKliknij, aby zbanowac!'
+          - "&8x &8➜ &#FFC70CInformacje o karze&8:"
+          - "&8x &#C3C3C3Gracz odmówił współpracy lub"
+          - "&8x &#C3C3C3utrudnia przebieg sprawdzania."
+          - ""
+          - "&8x &#FF0000Kliknij, aby zbanować gracza!"
+
       teleport:
         slot: 15
         material: ENDER_PEARL
-        name: '&b&lTELEPORT DO SPRAWDZARKI'
+        name: "&#00C0F1&lᴛᴇʟᴇᴘᴏʀᴛ ᴅᴏ ꜱᴘʀᴀᴡᴅᴢᴀʀᴋɪ"
         lore:
-          - '&8&m------------------------'
-          - '&fTeleportuj swoja postac do'
-          - '&faktualnej &5strefy sprawdzania&f.'
-          - '&8&m------------------------'
-          - '&bKliknij, aby sie przeniesc!'
+          - "&8x &8➜ &#FFC70CInformacje o akcji&8:"
+          - "&8x &#C3C3C3Teleportuj swoją postać bezpośrednio"
+          - "&8x &#C3C3C3do aktualnej &#00C0F1strefy sprawdzania&#C3C3C3."
+          - ""
+          - "&8x &#37FF00Kliknij, aby się przenieść!"
+
       history:
         slot: 16
         material: BOOK
-        name: '&d&lHISTORIA KONTROLI'
+        name: "&#FFC70C&lʜɪꜱᴛᴏʀɪᴀ ᴋᴏɴᴛʀᴏʟɪ"
         lore:
-          - '&8&m------------------------'
-          - '&fZobacz rejestr wszystkich akcji'
-          - '&fpodjetych wobec gracza &d{PLAYER}&f.'
-          - '&8&m------------------------'
-          - '&bKliknij, aby przejrzec!'
+          - "&8x &8➜ &#FFC70CInformacje o profilu&8:"
+          - "&8x &#C3C3C3Zobacz pełny rejestr wszystkich akcji"
+          - "&8x &#C3C3C3podjętych wobec gracza &#00C0F1{PLAYER}&r&#C3C3C3."
+          - ""
+          - "&8x &#37FF00Kliknij, aby przejrzeć historię!"
