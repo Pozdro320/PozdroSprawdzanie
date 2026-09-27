@@ -33,7 +33,7 @@ public class ChatListener implements Listener {
                 checker.sendMessage(finalMsg);
                 mod.sendMessage(finalMsg);
             } else {
-                plugin.getConfigManager().getMessages().sendMessages(checker, "chat-no-moderator", "{PLAYER}", checker.getName());
+                plugin.getConfigManager().getMessages().sendMessages(checker, "chat-chat-no-moderator", "{PLAYER}", checker.getName());
             }
             return;
         }

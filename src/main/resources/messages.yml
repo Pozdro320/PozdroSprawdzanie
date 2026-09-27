@@ -10,23 +10,38 @@ messages:
     no-spawn:
       chat: "&f网 &#FF0000Lokalizacja spawnu nie została jeszcze ustawiona!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
-    is-checked:
-      chat: "&f网 &#FF0000Ten gracz nie jest obecnie sprawdzany!"
-      sound: "BLOCK_NOTE_BLOCK_BASS"
     player-offline:
       chat: "&f网 &#FF0000Podany gracz jest offline!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     block-commands:
       chat: "&f网 &#FF0000Wykonywanie komend podczas trwania kontroli jest zablokowane!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
-    him-self:
+    cannot-check-self:
       chat: "&f网 &#FF0000Nie możesz wezwać do sprawdzania samego siebie!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
-    hierarchy:
-      chat: "&f网 &#FF0000Nie posiadasz uprawnień do sprawdzania gracza &#00C0F1{PLAYER}&r&#FF0000!"
+    you-are-checked:
+      chat: "&f网 &#FF0000Nie możesz tego zrobić, ponieważ sam jesteś sprawdzany!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     not-checked:
       chat: "&f网 &#FF0000Nie jesteś obecnie sprawdzany!"
+      sound: "BLOCK_NOTE_BLOCK_BASS"
+    target-not-checked:
+      chat: "&f网 &#FF0000Gracz &#00C0F1{PLAYER}&r &#FF0000nie jest obecnie sprawdzany!"
+      sound: "BLOCK_NOTE_BLOCK_BASS"
+    player-already-checked:
+      chat: "&f网 &#FF0000Gracz &#00C0F1{PLAYER}&r &#FF0000jest już sprawdzany przez administratora &#00C0F1{MODERATOR}&r&#FF0000!"
+      sound: "BLOCK_NOTE_BLOCK_BASS"
+    already-checking-this-player:
+      chat: "&f网 &#FF0000Już prowadzisz kontrolę tego gracza!"
+      sound: "BLOCK_NOTE_BLOCK_BASS"
+    moderator-already-checking:
+      chat: "&f网 &#FF0000Sprawdzasz już gracza &#00C0F1{PLAYER}&r&#FF0000! Zakończ obecną kontrolę, aby zacząć nową."
+      sound: "BLOCK_NOTE_BLOCK_BASS"
+    checked-by-other:
+      chat: "&f网 &#FF0000Nie możesz wydać werdyktu, ponieważ gracz &#00C0F1{PLAYER}&r &#FF0000jest sprawdzany przez &#00C0F1{MODERATOR}&r&#FF0000!"
+      sound: "BLOCK_NOTE_BLOCK_BASS"
+    hierarchy-forbidden:
+      chat: "&f网 &#FF0000Nie posiadasz uprawnień do sprawdzenia gracza &#00C0F1{PLAYER}&r &#FF0000(zbyt wysoka ranga)!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     chat-no-moderator:
       chat: "&f网 &#FF0000Musisz poczekać na dołączenie administratora!"
@@ -35,10 +50,10 @@ messages:
       chat: "&f网 &#FF0000Ta komenda może być używana wyłącznie przez graczy!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     no-permission-check:
-      chat: "&f网 &#FF0000Nie posiadasz uprawnień do sprawdzania graczy! &8(&#C3C3C3sc-sprawdzanie.sprawdz&8)"
+      chat: "&f网 &#FF0000Nie posiadasz uprawnień do sprawdzania graczy!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
     no-permission-checker:
-      chat: "&f网 &#FF0000Nie posiadasz uprawnień do zarządzania sprawdzarką! &8(&#C3C3C3sc-sprawdzanie.admin&8)"
+      chat: "&f网 &#FF0000Nie posiadasz uprawnień do zarządzania sprawdzarką!"
       sound: "BLOCK_NOTE_BLOCK_BASS"
 
   usage:
@@ -53,9 +68,6 @@ messages:
     chat: "&8[&#FFC70C&lGRACZ&8] &#00C0F1{PLAYER}&8: &#C3C3C3{MESSAGE}"
   chat-moderator:
     chat: "&8[&#00C0F1&lMOD&8] &#00C0F1{MODERATOR}&8: &#C3C3C3{MESSAGE}"
-  no-moderator:
-    chat: "&f网 &#FF8600Poczekaj na odpowiedź osoby sprawdzającej!"
-    sound: "BLOCK_NOTE_BLOCK_BASS"
 
   check-start-player:
     chat: "&f网 &#FF8600Zostałeś wezwany do sprawdzania przez administratora &#00C0F1{MODERATOR}&r&#FF8600!"

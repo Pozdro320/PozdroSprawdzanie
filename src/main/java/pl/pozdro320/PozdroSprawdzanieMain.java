@@ -14,6 +14,7 @@ import pl.pozdro320.gui.checker.CheckerGUI;
 import pl.pozdro320.gui.history.HistoryGUI;
 import pl.pozdro320.helper.BansHelper;
 import pl.pozdro320.helper.GroupCheckHelper;
+import pl.pozdro320.helper.VisibilityHelper;
 import pl.pozdro320.listener.JoinQuit.OnJoinListener;
 import pl.pozdro320.listener.JoinQuit.QuitPlayerListener;
 import pl.pozdro320.listener.blocked.BlockCommandListener;
@@ -38,8 +39,10 @@ public class PozdroSprawdzanieMain extends JavaPlugin {
 
     private ConfigManager configManager;
     private HistoryManager historyManager;
+
     private BansHelper bansHelper;
     private GroupCheckHelper groupCheckHelper;
+    private VisibilityHelper visibilityHelper;
 
     private Location checkLocation;
     private Location spawnLocation;
@@ -72,6 +75,7 @@ public class PozdroSprawdzanieMain extends JavaPlugin {
         this.historyManager = new HistoryManager(this);
         this.bansHelper = new BansHelper(this);
         this.groupCheckHelper = new GroupCheckHelper(this);
+        this.visibilityHelper = new VisibilityHelper(this);
 
         this.checkLocation = configManager.getLocations().load("checker");
         this.spawnLocation = configManager.getLocations().load("spawn");
@@ -103,11 +107,17 @@ public class PozdroSprawdzanieMain extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for (UUID uuid : checkedPlayers.keySet()) {
-            Player p = Bukkit.getPlayer(uuid);
-            if (p != null && spawnLocation != null) {
-                p.teleport(spawnLocation);
-                p.sendMessage("§cPlugin zostal wylaczony. Sprawdzanie przerwane.");
+        for (var entry : checkedPlayers.entrySet()) {
+            Player target = Bukkit.getPlayer(entry.getKey());
+            Player moderator = Bukkit.getPlayer(entry.getValue());
+
+            if (target != null && spawnLocation != null) {
+                target.teleport(spawnLocation);
+                target.sendMessage("§cPlugin zostal wylaczony. Sprawdzanie przerwane.");
+                visibilityHelper.restoreVisibility(target);
+            }
+            if (moderator != null) {
+                visibilityHelper.restoreVisibility(moderator);
             }
         }
 
@@ -142,12 +152,22 @@ public class PozdroSprawdzanieMain extends JavaPlugin {
         configManager.getLocations().save("spawn", loc);
     }
 
-    public void addChecked(Player checker, Player moderator) {
-        checkedPlayers.put(checker.getUniqueId(), moderator.getUniqueId());
+    public void addChecked(Player target, Player moderator) {
+        checkedPlayers.put(target.getUniqueId(), moderator.getUniqueId());
+        visibilityHelper.isolatePlayers(moderator, target);
     }
 
-    public void removeChecked(Player checker) {
-        checkedPlayers.remove(checker.getUniqueId());
+    public void removeChecked(Player target) {
+        UUID modUuid = checkedPlayers.remove(target.getUniqueId());
+
+        visibilityHelper.restoreVisibility(target);
+
+        if (modUuid != null) {
+            Player moderator = Bukkit.getPlayer(modUuid);
+            if (moderator != null && moderator.isOnline()) {
+                visibilityHelper.restoreVisibility(moderator);
+            }
+        }
     }
 
     public boolean isChecked(Player p) {
@@ -191,5 +211,9 @@ public class PozdroSprawdzanieMain extends JavaPlugin {
 
     public static boolean isPlaceholderAPIEnabled() {
         return placeholderAPIEnabled;
+    }
+
+    public VisibilityHelper getVisibilityHelper() {
+        return visibilityHelper;
     }
 }

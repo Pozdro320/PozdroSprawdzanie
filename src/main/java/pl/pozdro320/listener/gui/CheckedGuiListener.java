@@ -47,6 +47,44 @@ public class CheckedGuiListener implements Listener {
 
         switch (action) {
             case "ACTION_CHECK":
+                if (moderator.getUniqueId().equals(target.getUniqueId())) {
+                    plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.cannot-check-self");
+                    moderator.closeInventory();
+                    return;
+                }
+
+                if (plugin.isChecked(moderator)) {
+                    plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.you-are-checked");
+                    moderator.closeInventory();
+                    return;
+                }
+
+                if (plugin.isChecked(target)) {
+                    Player currentMod = plugin.getModerator(target);
+                    String modName = (currentMod != null) ? currentMod.getName() : "Innego administratora";
+
+                    if (currentMod != null && currentMod.getUniqueId().equals(moderator.getUniqueId())) {
+                        plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.already-checking-this-player", "{PLAYER}", target.getName());
+                    } else {
+                        plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.player-already-checked", "{PLAYER}", target.getName(), "{MODERATOR}", modName);
+                    }
+                    moderator.closeInventory();
+                    return;
+                }
+
+                Player activeTarget = plugin.getChecked(moderator);
+                if (activeTarget != null) {
+                    plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.moderator-already-checking", "{PLAYER}", activeTarget.getName());
+                    moderator.closeInventory();
+                    return;
+                }
+
+                if (plugin.getGroupCheckHelper() != null && !plugin.getGroupCheckHelper().canCheck(moderator, target)) {
+                    plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.hierarchy-forbidden", "{PLAYER}", target.getName());
+                    moderator.closeInventory();
+                    return;
+                }
+
                 if (plugin.getCheckLocation() == null) {
                     plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.no-checker");
                     return;
@@ -56,6 +94,7 @@ public class CheckedGuiListener implements Listener {
                     return;
                 }
 
+                moderator.closeInventory();
                 moderator.teleport(plugin.getCheckLocation());
                 target.teleport(plugin.getCheckLocation());
 
@@ -63,15 +102,10 @@ public class CheckedGuiListener implements Listener {
 
                 plugin.getConfigManager().getMessages().sendMessages(target, "check-start-player", "{MODERATOR}", moderator.getName());
                 plugin.getConfigManager().getMessages().sendMessages(moderator, "check-start-mod", "{PLAYER}", target.getName(), "{MODERATOR}", moderator.getName());
-                moderator.closeInventory();
                 break;
 
             case "ACTION_CLEAN":
-                if (!plugin.isChecked(target)) {
-                    plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.is-checked", "{PLAYER}", target.getName());
-                    moderator.closeInventory();
-                    return;
-                }
+                if (!validateActiveCheck(moderator, target)) return;
 
                 moderator.closeInventory();
                 target.teleport(plugin.getSpawnLocation());
@@ -85,11 +119,7 @@ public class CheckedGuiListener implements Listener {
                 break;
 
             case "ACTION_CHEATER":
-                if (!plugin.isChecked(target)) {
-                    plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.is-checked", "{PLAYER}", target.getName());
-                    moderator.closeInventory();
-                    return;
-                }
+                if (!validateActiveCheck(moderator, target)) return;
 
                 moderator.closeInventory();
                 plugin.getConfigManager().getMessages().sendMessages(moderator, "cheats-mod", "{PLAYER}", target.getName());
@@ -103,11 +133,7 @@ public class CheckedGuiListener implements Listener {
                 break;
 
             case "ACTION_ADMISSION":
-                if (!plugin.isChecked(target)) {
-                    plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.is-checked", "{PLAYER}", target.getName());
-                    moderator.closeInventory();
-                    return;
-                }
+                if (!validateActiveCheck(moderator, target)) return;
 
                 moderator.closeInventory();
                 plugin.getConfigManager().getMessages().sendMessages(moderator, "admission-mod", "{PLAYER}", target.getName());
@@ -121,11 +147,7 @@ public class CheckedGuiListener implements Listener {
                 break;
 
             case "ACTION_LACK_COOPERATION":
-                if (!plugin.isChecked(target)) {
-                    plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.is-checked", "{PLAYER}", target.getName());
-                    moderator.closeInventory();
-                    return;
-                }
+                if (!validateActiveCheck(moderator, target)) return;
 
                 moderator.closeInventory();
                 plugin.getConfigManager().getMessages().sendMessages(moderator, "lack-of-cooperation-mod", "{PLAYER}", target.getName());
@@ -153,5 +175,34 @@ public class CheckedGuiListener implements Listener {
                 moderator.playSound(moderator.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 1f, 1f);
                 break;
         }
+    }
+
+    private boolean validateActiveCheck(Player moderator, Player target) {
+        if (!plugin.isChecked(target)) {
+            plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.not-checked", "{PLAYER}", target.getName());
+            moderator.closeInventory();
+            return false;
+        }
+
+        Player assignedMod = plugin.getModerator(target);
+        if (assignedMod != null && !assignedMod.getUniqueId().equals(moderator.getUniqueId())) {
+            if (!moderator.hasPermission("pozdrosprawdzanie.override")) {
+                plugin.getConfigManager().getMessages().sendMessages(
+                    moderator,
+                    "errors.checked-by-other",
+                    "{PLAYER}", target.getName(),
+                    "{MODERATOR}", assignedMod.getName()
+                );
+                moderator.closeInventory();
+                return false;
+            }
+        }
+
+        if (plugin.getSpawnLocation() == null) {
+            plugin.getConfigManager().getMessages().sendMessages(moderator, "errors.no-spawn");
+            return false;
+        }
+
+        return true;
     }
 }

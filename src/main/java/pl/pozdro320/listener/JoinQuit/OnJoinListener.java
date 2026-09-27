@@ -20,6 +20,8 @@ public class OnJoinListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
+        plugin.getVisibilityHelper().handleJoin(player);
+
         if (player.hasPermission("pozdrosprawdzanie.admin") && plugin.isUpdateAvailable()) {
 
             MessageHelper.build("")

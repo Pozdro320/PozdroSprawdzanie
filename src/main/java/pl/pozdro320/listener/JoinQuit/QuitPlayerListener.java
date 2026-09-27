@@ -4,7 +4,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-
 import pl.pozdro320.PozdroSprawdzanieMain;
 
 public class QuitPlayerListener implements Listener {
@@ -24,15 +23,36 @@ public class QuitPlayerListener implements Listener {
             String modName = (moderator != null) ? moderator.getName() : "Console";
 
             String logoutReason = plugin.getConfig().getString("history-reasons.logout", "BANNED (LOGOUT)");
-            plugin.getHistoryManager().log(player.getName(), logoutReason, moderator.getName());
+            plugin.getHistoryManager().log(player.getName(), logoutReason, modName);
 
             if (moderator != null && moderator.isOnline()) {
-                plugin.getConfigManager().getMessages().sendMessages(moderator, "logged-out-mod", player.getName(), modName);
+                plugin.getConfigManager().getMessages().sendMessages(
+                    moderator,
+                    "logged-out-mod",
+                    "{PLAYER}", player.getName(),
+                    "{MODERATOR}", modName
+                );
             }
 
             plugin.getBansHelper().executeBan(player, moderator, "logged-out");
-
             plugin.removeChecked(player);
+            return;
+        }
+
+        Player checked = plugin.getChecked(player);
+        if (checked != null) {
+            plugin.removeChecked(checked);
+
+            if (checked.isOnline()) {
+                if (plugin.getSpawnLocation() != null) {
+                    checked.teleport(plugin.getSpawnLocation());
+                }
+                plugin.getConfigManager().getMessages().sendMessages(
+                    checked,
+                    "mod-left-during-check",
+                    "{MODERATOR}", player.getName()
+                );
+            }
         }
     }
 }

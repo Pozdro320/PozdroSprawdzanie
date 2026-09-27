@@ -48,12 +48,12 @@ public class CheckCommand extends Command {
         }
 
         if (target.equals(player)) {
-            plugin.getConfigManager().getMessages().sendMessages(player, "errors.him-self");
+            plugin.getConfigManager().getMessages().sendMessages(player, "errors.cannot-check-self");
             return true;
         }
 
         if (!plugin.getGroupCheckHelper().canCheck(player, target)) {
-            plugin.getConfigManager().getMessages().sendMessages(player, "errors.hierarchy", "{PLAYER}", player.getName());
+            plugin.getConfigManager().getMessages().sendMessages(player, "errors.hierarchy-forbidden", "{PLAYER}", target.getName());
             return true;
         }
 
