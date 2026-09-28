@@ -2,8 +2,8 @@ package pl.pozdro320.helper;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -19,10 +19,12 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class MessageHelper {
+
     private static final Pattern MULTI_GRADIENT_PATTERN = Pattern.compile("<gradient:((#[a-fA-F0-9]{6}:?)+)>(.*?)</gradient>");
     private static final Pattern HEX_PATTERN = Pattern.compile("&#([a-fA-F0-9]{6})|#([a-fA-F0-9]{6})");
     private static final Pattern LINK_PATTERN = Pattern.compile("<link:(.*?)>(.*?)</link>");
 
+    private static final int MAX_CACHE_SIZE = 1000;
     private static final Map<String, String> CACHE = new ConcurrentHashMap<>();
 
     private final String message;
@@ -42,36 +44,47 @@ public class MessageHelper {
     public static String colored(String message) {
         if (message == null || message.isEmpty()) return "";
 
-        return CACHE.computeIfAbsent(message, msg -> {
-            String processed = msg;
+        boolean hasDynamicNumbers = message.matches(".*\\d.*");
+        if (hasDynamicNumbers) {
+            return processColors(message);
+        }
 
-            processed = processed.replace("<b>", "&l").replace("</b>", "&r")
-                            .replace("<i>", "&o").replace("</i>", "&r")
-                            .replace("<u>", "&n").replace("</u>", "&r")
-                            .replace("<obf>", "&k").replace("</obf>", "&r")
-                            .replace("<strike>", "&m").replace("</strike>", "&r")
-                            .replace(">>", "»");
+        if (CACHE.size() > MAX_CACHE_SIZE) {
+            CACHE.clear();
+        }
 
-            processed = ChatColor.translateAlternateColorCodes('&', processed);
+        return CACHE.computeIfAbsent(message, MessageHelper::processColors);
+    }
 
-            Matcher gradientMatcher = MULTI_GRADIENT_PATTERN.matcher(processed);
-            while (gradientMatcher.find()) {
-                String colorsStr = gradientMatcher.group(1);
-                String content = gradientMatcher.group(3);
-                String[] hexes = colorsStr.split(":");
-                processed = processed.replace(gradientMatcher.group(), applyMultiGradient(content, hexes));
-            }
+    private static String processColors(String msg) {
+        String processed = msg;
 
-            Matcher hexMatcher = HEX_PATTERN.matcher(processed);
-            StringBuilder buffer = new StringBuilder();
-            while (hexMatcher.find()) {
-                String hex = hexMatcher.group(1) != null ? hexMatcher.group(1) : hexMatcher.group(2);
-                hexMatcher.appendReplacement(buffer, ChatColor.of("#" + hex).toString());
-            }
-            hexMatcher.appendTail(buffer);
+        processed = processed.replace("<b>", "&l").replace("</b>", "&r")
+                                .replace("<i>", "&o").replace("</i>", "&r")
+                                .replace("<u>", "&n").replace("</u>", "&r")
+                                .replace("<obf>", "&k").replace("</obf>", "&r")
+                                .replace("<strike>", "&m").replace("</strike>", "&r")
+                                .replace(">>", "»");
 
-            return buffer.toString();
-        });
+        processed = ChatColor.translateAlternateColorCodes('&', processed);
+
+        Matcher gradientMatcher = MULTI_GRADIENT_PATTERN.matcher(processed);
+        while (gradientMatcher.find()) {
+            String colorsStr = gradientMatcher.group(1);
+            String content = gradientMatcher.group(3);
+            String[] hexes = colorsStr.split(":");
+            processed = processed.replace(gradientMatcher.group(), applyMultiGradient(content, hexes));
+        }
+
+        Matcher hexMatcher = HEX_PATTERN.matcher(processed);
+        StringBuilder buffer = new StringBuilder();
+        while (hexMatcher.find()) {
+            String hex = hexMatcher.group(1) != null ? hexMatcher.group(1) : hexMatcher.group(2);
+            hexMatcher.appendReplacement(buffer, ChatColor.of("#" + hex).toString());
+        }
+        hexMatcher.appendTail(buffer);
+
+        return buffer.toString();
     }
 
     public static BaseComponent[] parseToComponent(String message) {
@@ -149,7 +162,7 @@ public class MessageHelper {
 
             int r = (int) (start.getRed() * (1 - localRatio) + end.getRed() * localRatio);
             int g = (int) (start.getGreen() * (1 - localRatio) + end.getGreen() * localRatio);
-            int b = (int) (start.getBlue() * (1 - localRatio) + end.getGreen() * localRatio);
+            int b = (int) (start.getBlue() * (1 - localRatio) + end.getBlue() * localRatio);
 
             builder.append(ChatColor.of(new Color(r, g, b)))
                     .append(styles.toString())
@@ -166,8 +179,8 @@ public class MessageHelper {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(colored(text)));
     }
 
-    public static void sendTitle(Player p, String title, String subttitle) {
-        sendTitle(p, title, subttitle, 10, 40, 10);
+    public static void sendTitle(Player p, String title, String subtitle) {
+        sendTitle(p, title, subtitle, 10, 40, 10);
     }
 
     public static void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
@@ -185,8 +198,8 @@ public class MessageHelper {
     }
 
     public void send(CommandSender sender) {
-        if (sender instanceof Player) {
-            ((Player) sender).spigot().sendMessage(parseToComponent(message));
+        if (sender instanceof Player player) {
+            player.spigot().sendMessage(parseToComponent(message));
         } else {
             sender.sendMessage(colored(message));
         }

@@ -1,4 +1,4 @@
-# 🔍 PozdroSprawdzanie
+# PozdroSprawdzanie
 
 > Zaawansowany, asynchroniczny i w pełni zoptymalizowany system weryfikacji graczy (sprawdzarka) na serwery Minecraft.
 
